@@ -1,39 +1,46 @@
-const decisionTree = {
-  "Визначення проблеми або завдання": null,
-  "Збір і аналіз даних": null,
-  "Визначення альтернативних варіантів": {
-    "Побудова дерева рішень": null,
-    "Створення списку варіантів": null,
-    "Аналіз переваг і недоліків кожного варіанту": null
-  },
-  "Побудова дерева рішень": {
-    "Ідентифікація ключових факторів": null,
-    "Побудова структури дерева": null,
-    "Визначення альтернативних варіантів рішень": null
-  },
-  "Оцінка альтернатив": {
-    "Використання методів оцінки": null,
-    "Порівняння варіантів за кількісними та якісними критеріями": null
-  },
-  "Вибір оптимального варіанту": null,
-  "Реалізація та контроль": {
-    "Планування впровадження": null,
-    "Виконання плану": null,
-    "Моніторинг та контроль": null
-  },
-  "Оцінка результатів": null
-};
+class TreeNode {
+  constructor(value) {
+    this.value = value;
+    this.children = [];
+  }
 
-// Функція для виведення дерева
-function printDecisionTree(tree, indent = 0) {
-  for (const key in tree) {
-    if (Object.prototype.hasOwnProperty.call(tree, key)) {
-      console.log("\t".repeat(indent) + "- " + key);
-      if (typeof tree[key] === 'object' && tree[key] !== null) {
-        printDecisionTree(tree[key], indent + 1);
-      }
-    }
+  addChild(node) {
+    this.children.push(node);
   }
 }
 
-printDecisionTree(decisionTree);
+class Tree {
+  constructor() {
+    this.root = null;
+  }
+
+  setRoot(node) {
+    this.root = node;
+  }
+
+  // Рекурсивна функція для відображення структури дерева у консолі
+  display(node, depth) {
+    console.log("  ".repeat(depth) + "- " + node.value);
+    node.children.forEach(child => {
+      this.display(child, depth + 1);
+    });
+  }
+}
+
+// Створення дерева для теми "Стратегії ведення бізнесу"
+const businessStrategiesTree = new Tree();
+
+// Визначення кореневого вузла
+const rootNode = new TreeNode('Стратегії ведення бізнесу');
+
+// Додавання дочірніх вузлів
+rootNode.addChild(new TreeNode('Вибір стратегій маркетингу'));
+rootNode.addChild(new TreeNode('Розробка нових продуктів'));
+rootNode.addChild(new TreeNode('Оптимізація процесів'));
+
+// Встановлення кореневого вузла
+businessStrategiesTree.setRoot(rootNode);
+
+// Виведення структури дерева у консолі
+businessStrategiesTree.display(businessStrategiesTree.root, 0);
+
